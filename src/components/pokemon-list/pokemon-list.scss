@@ -1,0 +1,104 @@
+@mixin typeColorScheme($gradientFirst, $gradientSecond) {
+  background: linear-gradient(to bottom, $gradientFirst, $gradientSecond);
+  box-shadow: inset 0px 0px 0px 1px $gradientSecond;
+}
+
+.list_container {
+  display: grid;
+  width: 60%;
+  grid-template-columns: 30% 30% 30%;
+  grid-gap: 10px 3%;
+  text-align: center;
+  justify-self: start;
+  
+  .list-item {
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .type_container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 8px;
+    justify-content: space-between;
+    width: 85%;
+    margin: auto;
+    padding-bottom: 20px;
+    
+
+    span {
+      box-sizing: border-box;
+      width: 100%;
+      text-align: center;
+      padding: 5px 0 ;
+      border-radius: 5px;
+      @include typeColorScheme(rgba(180, 248, 216, 0.6), rgba(94, 240, 172, 0.6))
+    }
+
+    .poison {
+      @include typeColorScheme(rgba(215, 148, 252, 0.6), rgba(89, 29, 122, 0.6));
+    }
+
+    .grass {
+      @include typeColorScheme(rgba(181, 250, 172, 0.6), rgba(67, 153, 56, 0.6));
+    }
+
+    .electric {
+      @include typeColorScheme(rgba(250, 234, 182, 0.6), rgba(250, 203, 50, 0.6));
+    }
+
+    .fire {
+      @include typeColorScheme(rgba(248, 171, 171, 0.6), rgba(252, 45, 45, 0.6));
+    }
+
+    .water{
+      @include typeColorScheme(rgba(150, 151, 253, 0.6), rgba(45, 49, 252, 0.6));
+    }
+
+  }
+  
+
+  .list_item {
+    border: 1px solid;
+  }
+
+  .load_btn {
+    background-color: rgb(49, 139, 241);
+    width: 100%;
+    height: 60px;
+    font-size: 1.5rem;
+    color: rgb(255, 255, 255);
+    border: 1px solid grey;
+    border-radius: 10px;
+    grid-column: 1 / 4;
+
+    &:hover {
+      box-shadow: 0px 0px 17px 3px rgba(49, 139, 241, 0.5);
+      cursor: pointer;
+    }
+
+    &:active {
+      box-shadow: inset 0px 0px 10px 6px rgba(11, 49, 92, 0.3);
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+
+  }
+
+}
+
+@media (max-width: 1250px) {
+  .list_container {
+    width: 80%;
+    grid-template-columns: auto auto;
+
+    .load_btn {
+      grid-column: 1 / 3;
+    }
+  }
+}

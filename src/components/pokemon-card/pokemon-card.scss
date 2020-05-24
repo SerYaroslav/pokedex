@@ -1,0 +1,61 @@
+.card_container{
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  height: 70%;
+  position: sticky;
+  top: 15%;
+  padding: 10px;
+  text-align: center;
+  border: 2px solid;
+
+  h2 {
+    margin: 0 0 10px 0;
+  }
+  
+
+  .img_container{
+    display: block;
+    margin: auto;
+    width: 100%;
+    height: auto;
+    img{
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .stat_container{
+    display: inline-flex;
+    flex-direction: column;
+    
+
+    .stat_row {
+      display: flex;
+      border: 1px solid;
+      border-bottom: none;
+      line-height: 1.5rem;
+
+      &:last-of-type{
+        border-bottom: 1px solid;
+      }
+
+      div:first-child{
+        width: 150px;
+        align-self: center;
+      }
+  
+      div:last-child{
+        width: 100px;
+        border-left: 1px solid;
+      }
+    }
+
+    
+
+  }
+}
+
+
+
+

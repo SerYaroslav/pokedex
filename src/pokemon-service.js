@@ -1,6 +1,6 @@
-export default class PokService {
+export default class PokemonService {
   _apiBase = 'https://pokeapi.co/api/v2';
-  _firstColectionUrl = '/pokemon?offset=0&limit=12'
+  _firstColectionUrl = '/pokemon?offset=24&limit=12'
 
   getResource = async (url) => {
     const res = await fetch(`${this._apiBase}${url}`)
@@ -22,8 +22,8 @@ export default class PokService {
     return this._transformData(res);
   }  */
 
-  getColection = async () => {
-    const transformedUrlsData = await this.getColectionUrls()
+  getColection = async (colectionUrl) => {
+    const transformedUrlsData = await this.getColectionUrls(colectionUrl);
     const urls = [...transformedUrlsData.pokemonsColection];
 
     let colectionPage = {
@@ -44,7 +44,7 @@ export default class PokService {
     return await series();
   }
 
-  getColectionUrls = async (colectionUrl = this._firstColectionUrl) => {
+  getColectionUrls = async (colectionUrl) => {
     const getData = await this.getResource(colectionUrl);
     const colection = this._transformColectionData(getData);
    
@@ -96,9 +96,9 @@ export default class PokService {
 
 }
 
-const test = new PokService();
+const test = new PokemonService();
 
-/* test.getColection().then((data) => console.log(data));  */
+/* test.getColection().then((data) => console.log(data));   */
 
 
 

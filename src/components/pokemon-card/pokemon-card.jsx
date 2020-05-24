@@ -1,27 +1,12 @@
 import React from 'react';
 
+import {connect} from 'react-redux';
+
+
 import './pokemon-card.scss'
 
-const pokemon = {
-  abilities: ["Chlorophyll", "Overgrow"],
-  height: 7,
-  id: 1,
-  image:
-    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
-  name: "Bulbasaur",
-  stats: [
-    { statName: "Speed", statValue: 45 },
-    { statName: "Special-defense", statValue: 65 },
-    { statName: "Special-attack", statValue: 65 },
-    { statName: "Defense", statValue: 49 },
-    { statName: "Attack", statValue: 49 },
-    { statName: "HP", statValue: 45 },
-  ],
-  types: ["Poison", "Grass", "Fire", ],
-  weight: 69,
-};
 
-const PokemonCard = () => {
+const PokemonCard = ({pokemon}) => {
   return (
     <div className="card_container">
       <div className="img_container">
@@ -62,6 +47,11 @@ const PokemonCard = () => {
   );
 };
 
-export default PokemonCard;
+
+const mapStateToProps = ({ pokemon }) => {
+  return {pokemon}
+};
+
+export default connect(mapStateToProps, null)( PokemonCard)
 
 

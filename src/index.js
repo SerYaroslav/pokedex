@@ -8,14 +8,14 @@ import App from './components/app';
 import ErrorBoundry from "./components/error-boundry";
 
 import { ServiceProvider } from './components/service-context';
-import PokService from './pok-service';
+import PokemonService from './pokemon-service';
 
-const pokService = new PokService();
+const pokemonService = new PokemonService();
 
 ReactDOM.render(
   <Provider store={store}>
     <ErrorBoundry>
-      <ServiceProvider value={pokService}>
+      <ServiceProvider value={pokemonService}>
         <App/>
       </ServiceProvider>
     </ErrorBoundry>

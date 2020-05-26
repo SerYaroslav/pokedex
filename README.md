@@ -4,3 +4,6 @@
  3. Clone the repository project is in ( git clone https://github.com/SerYaroslav/pokedex )
  4. Install needed tools ( npm install )
  5. Start an app ( npm start )
+
+ 
+App on gh-pages: https://seryaroslav.github.io/pokedex/

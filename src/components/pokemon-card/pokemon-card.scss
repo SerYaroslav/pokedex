@@ -56,6 +56,18 @@
   }
 }
 
+@media (max-width: 900px) {
+  .card_container {
+    width: 175px;
+  }
+}
+
+@media (max-width: 600px) {
+  .card_container {
+    width: 150px;
+  }
+}
+
 
 
 

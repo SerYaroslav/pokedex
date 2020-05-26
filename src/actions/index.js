@@ -25,10 +25,15 @@ const onPokemonSelected = (pokemonId) => {
   };
 };
 
+const onTypeSelected = (type) => {
+  return {
+    type: "ON_TYPE_SELECTED",
+    payload: type,
+  };
+};
+
 
 const fetchColection = (pokemonService, url)  => {
-  console.log("test");
-  console.log(`url${url}`);
   return (dispatch) => {
     dispatch(colectionRequested());
     pokemonService
@@ -39,4 +44,4 @@ const fetchColection = (pokemonService, url)  => {
 };
 
 
-export { onPokemonSelected, fetchColection };
+export { onPokemonSelected, fetchColection, onTypeSelected };

@@ -1,27 +1,21 @@
 const initialState = {
-  pokemon: {
-    abilities: ["Chlorophyll", "Overgrow"],
-    height: 7,
-    id: 1,
-    image:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
-    name: "Bulbasaur",
-    stats: [
-      { statName: "Speed", statValue: 45 },
-      { statName: "Special-defense", statValue: 65 },
-      { statName: "Special-attack", statValue: 65 },
-      { statName: "Defense", statValue: 49 },
-      { statName: "Attack", statValue: 49 },
-      { statName: "HP", statValue: 45 },
-    ],
-    types: ["Poison", "Grass", "Fire"],
-    weight: 69,
-  },
+  pokemon: null,
+  selectedType: "All",
   pokemonList: [],
+  filteredList: [],
   loading: true,
   error:null,
   next:null
 };
+
+const pokemonFilter = (colection, type) => {
+  if(type === "All") {
+    return colection
+  }
+  return (
+    colection.filter(item => item.types.includes(type))
+  )
+}
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -33,24 +27,39 @@ const reducer = (state = initialState, action) => {
       };
 
     case "FETCH_COLECTION_SUCCESS":
-      console.log(state.loading);
-      
       const newColection = [...state.pokemonList, ...action.payload.colection]
-      console.log(newColection);
+      const nextPage = action.payload.next;
       return {
         ...state,
         loading: false,
-        pokemonList: [...newColection],
+        pokemonList: newColection,
+        filteredList: newColection,
+        next: nextPage,
+        selectedType: "All"
       };
 
+    case "FETCH_COLECTION_FAILURE":
+      return{
+        ...state,
+        loading: false,
+        error: action.payload
+      }
+
     case "ON_POKEMON_SELECTED":
-      console.log(state.pokemon);
       const selectedPokemon = state.pokemonList.find(
         ({ id }) => id === action.payload
       );
       return {
         ...state,
         pokemon: selectedPokemon,
+      };
+
+    case "ON_TYPE_SELECTED":
+      const filteredColection = pokemonFilter(state.pokemonList, action.payload);
+      return {
+        ...state,
+        selectedType: action.payload,
+        filteredList: filteredColection,
       };
 
     default:

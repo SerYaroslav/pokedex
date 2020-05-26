@@ -7,18 +7,21 @@ import './pokemon-card.scss'
 
 
 const PokemonCard = ({pokemon}) => {
+
+  if(!pokemon) {
+    return null
+  }
+  console.log(pokemon);
   return (
     <div className="card_container">
       <div className="img_container">
         <img src={pokemon.image} alt="img" />
       </div>
       <div className="stat_container">
-      <h2>{pokemon.name}</h2>
+        <h2>{pokemon.name}</h2>
         <div className="stat_row">
           <div>Type</div>
-          <div>
-            {pokemon.types.join(', ')}
-          </div>
+          <div>{pokemon.types.join(", ")}</div>
         </div>
         {pokemon.stats
           .sort((a, b) => {
@@ -41,6 +44,10 @@ const PokemonCard = ({pokemon}) => {
         <div className="stat_row">
           <div>Weight</div>
           <div>{pokemon.weight}</div>
+        </div>
+        <div className="stat_row">
+          <div>Total moves</div>
+          <div>{pokemon.totalMoves}</div>
         </div>
       </div>
     </div>

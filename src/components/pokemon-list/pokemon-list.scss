@@ -6,15 +6,20 @@
 .list_container {
   display: grid;
   width: 60%;
-  grid-template-columns: 30% 30% 30%;
-  grid-gap: 10px 3%;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px 20px;
   text-align: center;
   justify-self: start;
   
-  .list-item {
-    img {
-      height: 100%;
+  .list_item {
+    border: 1px solid;
+    height: 280px;
+    img{
       width: 100%;
+      height: auto;
+    }
+    h3 {
+      margin-top: 0;
     }
   }
 
@@ -57,12 +62,14 @@
       @include typeColorScheme(rgba(150, 151, 253, 0.6), rgba(45, 49, 252, 0.6));
     }
 
+    .flying{
+      @include typeColorScheme(rgba(150, 238, 253, 0.6), rgba(67, 220, 247, 0.6));
+    }
+
   }
   
 
-  .list_item {
-    border: 1px solid;
-  }
+  
 
   .load_btn {
     background-color: rgb(49, 139, 241);
@@ -86,8 +93,6 @@
     &:focus {
       outline: none;
     }
-
-
   }
 
 }

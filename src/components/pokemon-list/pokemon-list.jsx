@@ -1,35 +1,32 @@
 import React, {useEffect} from 'react';
-
 import {connect} from 'react-redux';
 import { bindActionCreators } from "redux";
 
-import {withPokemonService} from '../hoc';
 import { onPokemonSelected, fetchColection } from "../../actions";
+import {withPokemonService} from "../hoc";
 
+import Spiner from '../spinner';
 
 import './pokemon-list.scss'
 
-
-const PokemonList = ({pokemonList, loading, onPokemonSelected, fetchColection, pokemonService, next}) => {
+const PokemonList = ({filteredList, loading, onPokemonSelected, fetchColection, pokemonService, next}) => {
 
   useEffect(() => {
-    fetchColection(pokemonService, "/pokemon?offset=24&limit=12");
-  }, [pokemonService, fetchColection]);
-  console.log(pokemonList);
+    fetchColection(pokemonService, "https://pokeapi.co/api/v2/pokemon?offset=0&limit=12");
+  }, [fetchColection, pokemonService]);
+
   if(loading){
-    return <h2>Loading</h2>
+    return <Spiner/>
   }
-  console.log(pokemonList); 
 
   const toLoadNextPage = () => {
-    fetchColection(pokemonService, "/pokemon?offset=24&limit=12");
+    fetchColection(pokemonService, next);
   }
   
   return (
     <div className="list_container">
       {
-      console.log(`fdsfs${pokemonList}`)}{
-        pokemonList.map(item => {
+        filteredList.map(item => {
           return (
             <div className="list_item" onClick={() => onPokemonSelected(item.id)} key={item.name}>
               <img src={item.image} alt={item.name} />
@@ -54,20 +51,23 @@ const PokemonList = ({pokemonList, loading, onPokemonSelected, fetchColection, p
   );
 }
 
-const mapStateToProps = ({ pokemonList, loading }) => {
+const mapStateToProps = ({ filteredList, loading, next }) => {
   return {
-    pokemonList,
-    loading
-  }
+    filteredList,
+    loading,
+    next,
+  };
 };
 
 const mapDispatchToProps = dispatch => 
-bindActionCreators(
-  {
-    onPokemonSelected,
-    fetchColection,
-  },
-  dispatch
+  bindActionCreators(
+    {
+      onPokemonSelected,
+      fetchColection,
+    },
+    dispatch
 );
 
-export default withPokemonService()(connect(mapStateToProps, mapDispatchToProps)( PokemonList))
+export default withPokemonService()(
+  connect(mapStateToProps, mapDispatchToProps)(PokemonList)
+);

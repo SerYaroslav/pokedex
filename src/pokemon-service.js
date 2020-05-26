@@ -1,9 +1,9 @@
 export default class PokemonService {
   _apiBase = 'https://pokeapi.co/api/v2';
-  _firstColectionUrl = '/pokemon?offset=24&limit=12'
+  _firstColectionUrl = `${this._apiBase}/pokemon?offset=0&limit=12`
 
   getResource = async (url) => {
-    const res = await fetch(`${this._apiBase}${url}`)
+    const res = await fetch(`${url}`)
 
     if (!res.ok) {
       throw new Error(`Could not fetch ${url} +
@@ -13,14 +13,10 @@ export default class PokemonService {
     return await res.json();
   };
 
-  getPokemon = async (id) => {
-    const res = await this.getResource(`/pokemon/${id}`);
+  getPokemon = async (url) => {
+    const res = await this.getResource(url);
     return this._transformPokemonData(res);
   } 
-  /* getPokemon = async (id) => {
-    const res = await this.getResource(id);
-    return this._transformData(res);
-  }  */
 
   getColection = async (colectionUrl) => {
     const transformedUrlsData = await this.getColectionUrls(colectionUrl);
@@ -32,12 +28,9 @@ export default class PokemonService {
       previous: transformedUrlsData.toLoadPrevious,
     };
 
-    console.log(`urls ${urls}`);
     const series = async () => {
       for (let i = 0; i < urls.length; i++) {
-        /* console.log(results); */
-        colectionPage.colection.push(await this.getPokemon(`${i + 1}`));
-        /* console.log(results); */
+        colectionPage.colection.push(await this.getPokemon(urls[i]));
       }
       return colectionPage;
     };
@@ -57,15 +50,27 @@ export default class PokemonService {
       if (!str) return str;
 
       return str[0].toUpperCase() + str.slice(1);
+    };
+
+    const toFormateStats = (str) => {
+      if (str.toLowerCase() === "hp") {
+        return str.toUpperCase();
+      } else if (str.includes('-')){
+        const strParts = str.split('-');
+        
+        return `${strParts[0].slice(0, 2).toUpperCase()} ${toCapFirstChar(strParts[1])}`; 
+      }
+      return toCapFirstChar(str)
     }
 
+    
     const abilities = data.abilities.map((item) => toCapFirstChar(item.ability.name));
 
     const types = data.types.map((item) => toCapFirstChar(item.type.name));
 
     const stats = data.stats.map(item => {
       return {
-        statName: toCapFirstChar(item.stat.name),
+        statName: toFormateStats(item.stat.name),
         statValue: item.base_stat,
       };
     });
@@ -79,6 +84,7 @@ export default class PokemonService {
       abilities: abilities,
       image: data.sprites.front_default,
       types: types,
+      totalMoves: data.moves.length
     };
   }
 
@@ -95,10 +101,6 @@ export default class PokemonService {
   }
 
 }
-
-const test = new PokemonService();
-
-/* test.getColection().then((data) => console.log(data));   */
 
 
 

@@ -1,4 +1,4 @@
- To run app make the following steps:
+ To run an app make the following steps:
  1. Create a folder for app ( mkdir repo )
  2. Enter the folder you have just created ( cd repo )
  3. Clone the repository project is in ( git clone https://github.com/SerYaroslav/pokedex )
